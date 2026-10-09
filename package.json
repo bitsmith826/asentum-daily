@@ -1,0 +1,13 @@
+{
+  "name": "asentum-daily-checkin",
+  "version": "1.0.0",
+  "description": "Otomasi Daily Check-in & Monitoring XP Asentum Airdrop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "loop": "node index.js --loop"
+  },
+  "keywords": ["asentum", "airdrop", "checkin", "daily", "automation"],
+  "author": "",
+  "license": "ISC"
+}

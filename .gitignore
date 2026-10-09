@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Credentials & Sensitive Account Tokens
+accounts.json
+session.json
+.env
+
+# Logs & Cache
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+scratch_*.js

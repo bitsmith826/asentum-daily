@@ -1,0 +1,7 @@
+[
+  {
+    "name": "Akun 1",
+    "token": "eyJhbGciOiJFUzI1NiIs...",
+    "refreshToken": "your_privy_refresh_token_here"
+  }
+]
