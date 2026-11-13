@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "loop": "node index.js --loop"
+    "loop": "node index.js --loop",
+    "grab": "python login_helper.py",
+    "login:wallets": "python siwe_login.py"
   },
   "keywords": ["asentum", "airdrop", "checkin", "daily", "automation"],
   "author": "",

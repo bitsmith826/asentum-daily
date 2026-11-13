@@ -35,13 +35,38 @@ Untuk setiap akun yang ingin Anda tambahkan, Anda hanya perlu menyiapkan **2 dat
 
 ---
 
-## 🔍 Cara Mengambil `token` & `refreshToken` untuk Akun Baru
+## 🔍 Cara Login / Mengambil `token` & `refreshToken`
 
-Lakukan langkah ini untuk masing-masing akun (misal dari profil Chrome yang berbeda atau mode Incognito):
+### Opsi 1: Otomatis Headless via EVM Private Key (SIWE - Paling Cepat & Instan) ⚡
+Jika akun Asentum Anda login menggunakan EVM Wallet (MetaMask/Rabby/dll), Anda bisa langsung login otomatis tanpa browser sama sekali menggunakan protokol **Sign-In with Ethereum (SIWE)**:
+1. Buat file `private_keys.txt` di folder proyek ini (file ini sudah otomatis di-`.gitignore` agar aman).
+2. Masukkan daftar Private Key EVM Anda (satu key per baris):
+   ```text
+   0xabc123...
+   0xdef456...
+   ```
+3. Jalankan perintah:
+   ```bash
+   npm run login:wallets
+   ```
+   *(atau `python siwe_login.py`)*
+4. Script akan langsung melakukan handshaking SIWE ke Privy, menandatangani pesan secara matematis, mengambil `token` & `refreshToken`, lalu menyimpannya langsung ke [accounts.json](file:///d:/Coding/asentum-daily/accounts.json)!
 
-1. **Buka Browser & Login** ke `https://airdrop.asentum.com/dashboard` menggunakan akun tersebut.
-2. Tekan tombol **F12** pada keyboard untuk membuka Inspect Elements / Developer Tools.
-3. Buka tab **Network** (Jaringan).
+---
+
+### Opsi 2: Otomatis Menggunakan Camoufox (Praktis - Tanpa F12 Manual) 🌟
+Jika akun Anda login menggunakan Email / Socials (Twitter, Google, dll):
+1. Jalankan perintah:
+   ```bash
+   npm run grab
+   ```
+2. Jendela browser Camoufox akan terbuka otomatis menuju halaman Asentum Airdrop.
+3. Lakukan **Sign In** dengan akun Anda.
+4. Script akan langsung menyadap `token` & `refreshToken` dari lalu lintas jaringan dan otomatis menyimpannya ke [accounts.json](file:///d:/Coding/asentum-daily/accounts.json)!
+
+---
+
+### Opsi 3: Manual Lewat Inspect Elements (F12)
 
 ### A. Mengambil `token`:
 1. Pada kolom filter pencarian Network, ketik: `me`

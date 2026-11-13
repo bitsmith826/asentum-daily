@@ -4,6 +4,9 @@ node_modules/
 # Credentials & Sensitive Account Tokens
 accounts.json
 session.json
+private_keys.txt
+keys.txt
+keys.json
 .env
 
 # Logs & Cache
@@ -12,3 +15,5 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 scratch_*.js
+__pycache__/
+*.pyc

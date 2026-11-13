@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 const config = require('./config');
 
 const BASE_URL = 'https://airdrop.asentum.com';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
 const ACCOUNTS_FILE = path.join(__dirname, 'accounts.json');
+const KEYS_FILE = path.join(__dirname, 'private_keys.txt');
 
 // Palet Warna ANSI Presisi & Modern
 const c = {
@@ -102,6 +104,24 @@ function isTokenExpiringSoon(token) {
   } catch {
     return true;
   }
+}
+
+// Auto-login via SIWE jika ada private_keys.txt
+function autoLoginWithPrivateKeys() {
+  if (!fs.existsSync(KEYS_FILE)) return false;
+  try {
+    const keysContent = fs.readFileSync(KEYS_FILE, 'utf8').trim();
+    const validKeys = keysContent.split('\n').filter(k => k.trim() && !k.trim().startsWith('#'));
+    if (validKeys.length === 0) return false;
+
+    console.log(`\n${c.cyan}[⚡ Auto-Login] Terdeteksi ${validKeys.length} Private Key di private_keys.txt.${c.reset}`);
+    console.log(`${c.cyan}[⚡ Auto-Login] Memperbarui session login via SIWE secara otomatis...${c.reset}`);
+    execSync('python siwe_login.py', { stdio: 'inherit' });
+    return true;
+  } catch (err) {
+    log(`Gagal menjalankan auto-login SIWE: ${err.message}`, 'warn');
+  }
+  return false;
 }
 
 // Auto-refresh token via Privy
@@ -337,6 +357,10 @@ function printSummaryTable(results) {
 // Runner utama
 async function runAllAccounts() {
   console.clear();
+
+  // Otomatis lakukan SIWE login jika file private_keys.txt tersedia & token butuh diperbarui
+  autoLoginWithPrivateKeys();
+
   const accounts = getAccounts();
 
   if (accounts.length === 0) {
